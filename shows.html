@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shows — Yago Raymond</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <a class="name" href="index.html">
+            YAGO RAYMOND
+        </a>
+
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="releases.html">RELEASES</a>
+            <a href="projects.html">PROJECTS</a>
+            <a href="shows.html">SHOWS</a>
+            <a href="https://yagoraymond.github.io/N-ary/">N-ARY</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+    </header>
+
+
+    <main class="shows">
+
+        <!-- =========================
+             UPCOMING
+             ========================= -->
+
+        <section class="shows-section">
+
+            <h2>UPCOMING</h2>
+
+            <div id="upcoming-shows"></div>
+
+        </section>
+
+
+        <!-- =========================
+             PAST
+             ========================= -->
+
+        <section class="shows-section">
+
+            <h2>PAST</h2>
+
+            <div id="past-shows"></div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           SHOW DATA
+           ========================= */
+
+        const shows = [
+
+            {
+                date: "2026-05-09",
+                venue: "Robolot 2026 — Algorave",
+                city: "Olot",
+                url: "https://som.robolot.online/robolotcon26/"
+            },
+
+            {
+                date: "2026-03-25",
+                venue: "VIU Festival — .exprange()",
+                city: "Barcelona",
+                url: "https://toplap.cat/posts/viu-2026-exprange/"
+            },
+
+            {
+                date: "2020-09-10",
+                venue: "Ars Electronica 2020 — Algorave",
+                city: "Barcelona",
+                url: "https://ars.electronica.art/keplersgardens/en/algorave/"
+            },
+
+            {
+                date: "2020-02-15",
+                venue: "VIU Festival — Algorave",
+                city: "Barcelona",
+                url: "https://www.tonijaume.com/2021/06/22/afiche-algorave-viu-2020/"
+            },
+
+            {
+                date: "2020-02-13",
+                venue: "VIU Festival — Marathon from scratch",
+                city: "Barcelona",
+                url: "https://hangar.org/en/residents/activitats-dels-residents/viu2020/"
+            },
+
+            {
+                date: "2019-11-23",
+                venue: "Festival Nibiru — Algorave",
+                city: "Olot",
+                url: "https://www.olotcultura.cat/segona-edicio-de-nibiru-la-mostra-dart-avancada/"
+            },
+
+            {
+                date: "2019-11-09",
+                venue: "Algobiente",
+                city: "Barcelona",
+                url: "https://parkellipsen.de/projects/algobiente.html"
+            },
+
+            {
+                date: "2019-09-28",
+                venue: "Festival Visual Brasil 2019",
+                city: "Barcelona",
+                url: "https://festivalvisualbrasil.com/ediciones/toplap"
+            },
+
+            {
+                date: "2019-07-19",
+                venue: "Hangar — Algorave",
+                city: "Barcelona",
+                url: "https://hangar.org/en/residents/activitats-dels-residents/espanol-algorave/"
+            },
+
+            {
+                date: "2019-05-03",
+                venue: "ESC19 Gathering — AlgorESC v2.0",
+                city: "Sta. Maria d’Oló",
+                url: "https://escape.cat/2019/algoresc2.html"
+            },
+
+            {
+                date: "2019-01-25",
+                venue: "VIU Festival — Algorave",
+                city: "Barcelona",
+                url: "https://hangar.org/en/residents/activitats-dels-residents/espanol-viu/"
+            }
+
+        ];
+
+
+        /* =========================
+           ELEMENTS HTML
+           ========================= */
+
+        const upcomingContainer =
+            document.getElementById("upcoming-shows");
+
+        const pastContainer =
+            document.getElementById("past-shows");
+
+
+        /* =========================
+           DATA ACTUAL
+           ========================= */
+
+        const now =
+            new Date();
+
+        const today =
+            [
+                now.getFullYear(),
+
+                String(
+                    now.getMonth() + 1
+                ).padStart(2, "0"),
+
+                String(
+                    now.getDate()
+                ).padStart(2, "0")
+
+            ].join("-");
+
+
+        /* =========================
+           SEPARAR UPCOMING / PAST
+           ========================= */
+
+        const upcomingShows =
+            shows
+                .filter(
+                    show =>
+                        show.date >= today
+                )
+                .sort(
+                    (a, b) =>
+                        a.date.localeCompare(
+                            b.date
+                        )
+                );
+
+
+        const pastShows =
+            shows
+                .filter(
+                    show =>
+                        show.date < today
+                )
+                .sort(
+                    (a, b) =>
+                        b.date.localeCompare(
+                            a.date
+                        )
+                );
+
+
+        /* =========================
+           FORMAT DATA
+           ========================= */
+
+        const months = [
+            "JAN",
+            "FEB",
+            "MAR",
+            "APR",
+            "MAY",
+            "JUN",
+            "JUL",
+            "AUG",
+            "SEP",
+            "OCT",
+            "NOV",
+            "DEC"
+        ];
+
+
+        function formatShowDate(date) {
+
+            const [
+                year,
+                month,
+                day
+            ] =
+                date.split("-");
+
+            return (
+                year +
+                " " +
+                months[
+                    Number(month) - 1
+                ] +
+                " " +
+                day
+            );
+        }
+
+
+        /* =========================
+           CREAR FILA
+           ========================= */
+
+        function createShowRow(show) {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+            row.className =
+                "show-row";
+
+
+            const content = `
+
+                <div class="show-date">
+                    ${formatShowDate(show.date)}
+                </div>
+
+                <div class="show-venue">
+                    ${show.venue}
+                </div>
+
+                <div class="show-city">
+                    ${show.city}
+                </div>
+
+            `;
+
+
+            if (show.url) {
+
+                row.innerHTML = `
+
+                    <a
+                        class="show-link"
+                        href="${show.url}"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        ${content}
+                    </a>
+
+                `;
+
+            }
+
+            else {
+
+                row.innerHTML =
+                    content;
+            }
+
+
+            return row;
+        }
+
+
+        /* =========================
+        GENERAR UPCOMING
+        ========================= */
+
+        if (upcomingShows.length === 0) {
+
+            upcomingContainer.innerHTML = `
+                <div class="no-shows">
+                    No dates scheduled.
+                </div>
+            `;
+
+        }
+
+        else {
+
+            upcomingShows.forEach(
+                show => {
+
+                    upcomingContainer
+                        .appendChild(
+                            createShowRow(show)
+                        );
+                }
+            );
+
+        }
+
+
+        /* =========================
+           GENERAR PAST
+           ========================= */
+
+        pastShows.forEach(
+            show => {
+
+                pastContainer
+                    .appendChild(
+                        createShowRow(show)
+                    );
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

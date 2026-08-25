@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Releases — Yago Raymond</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <a class="name" href="index.html">
+            YAGO RAYMOND
+        </a>
+
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="releases.html">RELEASES</a>
+            <a href="projects.html">PROJECTS</a>
+            <a href="shows.html">SHOWS</a>
+            <a href="https://yagoraymond.github.io/N-ary/">N-ARY</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+    </header>
+
+
+    <main class="releases">
+
+        <!-- Aquí es generaran els tracks -->
+        <div id="release-list"></div>
+
+    </main>
+
+    <!-- PLAYER -->
+    <div id="player">
+
+        <!-- PREV / PLAY / NEXT -->
+        <div class="player-left">
+
+            <button id="prev-button" aria-label="Previous track">
+                <svg viewBox="0 0 24 24">
+                    <rect x="4" y="5" width="2" height="14"></rect>
+                    <path d="M19 5 L8 12 L19 19 Z"></path>
+                </svg>
+            </button>
+
+            <button id="play-button" aria-label="Play">
+
+                <svg class="play-icon" viewBox="0 0 24 24">
+                    <path d="M7 4 L20 12 L7 20 Z"></path>
+                </svg>
+
+                <svg class="pause-icon" viewBox="0 0 24 24">
+                    <rect x="7" y="5" width="3" height="14"></rect>
+                    <rect x="14" y="5" width="3" height="14"></rect>
+                </svg>
+
+            </button>
+
+            <button id="next-button" aria-label="Next track">
+                <svg viewBox="0 0 24 24">
+                    <path d="M5 5 L16 12 L5 19 Z"></path>
+                    <rect x="18" y="5" width="2" height="14"></rect>
+                </svg>
+            </button>
+
+        </div>
+
+
+        <!-- TRACK + PROGRESS -->
+        <div class="player-center">
+
+            <div id="player-title"></div>
+
+            <div class="player-progress">
+
+                <span id="current-time">
+                    0:00
+                </span>
+
+                <input
+                    id="progress-bar"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step="0.1"
+                    aria-label="Track progress"
+                >
+
+                <span id="total-time">
+                    0:00
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SHUFFLE / CLOSE -->
+        <div class="player-right">
+
+            <button
+                id="shuffle-button"
+                aria-label="Shuffle"
+                title="Shuffle"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 7 H7 C12 7 12 17 17 17 H20"></path>
+                    <path d="M17 14 L20 17 L17 20"></path>
+
+                    <path d="M4 17 H7 C9 17 10 15 11 13"></path>
+                    <path d="M13 9 C14 8 15 7 17 7 H20"></path>
+                    <path d="M17 4 L20 7 L17 10"></path>
+                </svg>
+            </button>
+
+            <button id="close-player" aria-label="Close player">
+                ×
+            </button>
+
+        </div>
+
+
+        <audio id="audio-player"></audio>
+
+    </div>
+
+
+  
+
+    <!-- =========================
+         RELEASE DATA: 
+         
+         POSAR AQUI TOTS ELS TRACKS NOUS, AMB TIOL I NOM DEL TRACK 
+         (AMB UN .WAV A asssets/audio I UN .JPG A assets/images)
+         ========================= -->
+
+    <script>
+
+        const releases = [
+            {
+                title: "tbd",
+                file: "tbd",
+                album: "tbd",
+                date: "tbd",
+                download: true
+            },
+            {
+                title: "Track X: Bulu Sakai - Cara B",
+                file: "Track_X_Bulu_Sakai_Cara_B",
+                album: "live codable mixtape",
+                date: "sep 2025",
+                download: true
+            },
+            {
+                title: "Track IX: Més te",
+                file: "Track_IX_mes_te",
+                album: "live codable mixtape",
+                date: "sep 2025",
+                download: true
+            },
+            {
+                title: "Track VIII: Traces",
+                file: "Track_VIII_traces",
+                album: "live codable mixtape",
+                date: "sep 2025",
+                download: true
+            },
+            {
+                title: "Track VII: Efímer",
+                file: "Track_VII_efimer",
+                album: "live codable mixtape",
+                date: "sep 2025",
+                download: true
+            },
+            {
+                title: "Track VI: Crevasse",
+                file: "Track_VI_crevasse",
+                album: "live codable mixtape",
+                date: "sep 2025",
+                download: true
+            },
+            {
+                title: "Track V: Angoixa",
+                file: "Track_V_angoixa",
+                album: "live codable mixtape",
+                date: "aug 2025",
+                download: true
+            },
+            {
+                title: "Track IV: Roca foradada",
+                file: "Track_IV_roca_foradada",
+                album: "live codable mixtape",
+                date: "jul 2025",
+                download: true
+            },
+            {
+                title: "Track III: Chacun sa trace",
+                file: "Track_III_chacun_sa_trace",
+                album: "live codable mixtape",
+                date: "jul 2026",
+                download: true
+            },
+            {
+                title: "Track II: Teix",
+                file: "Track_II_teix",
+                album: "live codable mixtape",
+                date: "jul 2025",
+                download: true
+            },
+            {
+                title: "Track I: Cornisa",
+                file: "Track_I_cornisa",
+                album: "live codable mixtape",
+                date: "jul 2025",
+                download: true
+            },
+            {
+                title: "okraD",
+                file: "okraD",
+                album: "Down The Rabbit Hole · Call It Anything Records · CC BY-SA 4.0",
+                date: "mar 2021",
+                download: false
+            }
+        ];
+
+
+        /* =========================
+           GENERAR TRACKS
+           ========================= */
+
+        const releaseList =
+            document.getElementById("release-list");
+
+
+        releases.forEach(track => {
+
+            const audio =
+                `assets/audio/${track.file}.wav`;
+
+            const image =
+                `assets/images/thumbs/${track.file}.jpg`;
+
+
+            const article =
+                document.createElement("article");
+
+            article.className =
+                "release-track";
+
+            article.dataset.title =
+                track.title;
+
+            article.dataset.audio =
+                audio;
+
+            article.dataset.download =
+                audio;
+
+            const downloadButton =
+                track.download !== false
+                    ? `
+                        <a
+                            class="track-download"
+                            href="${audio}"
+                            download="${track.file}.wav"
+                            aria-label="Download ${track.title}"
+                        >
+                            <svg
+                                class="track-download-icon"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path d="M12 3V15"></path>
+                                <path d="M7 10L12 15L17 10"></path>
+                                <path d="M5 18H19"></path>
+                            </svg>
+                        </a>
+                    `
+                    : "";
+
+            article.innerHTML = `
+
+                <div class="track-main">
+
+                    <img
+                        class="track-cover"
+                        src="${image}"
+                        alt="${track.title}"
+                    >
+
+                    <span class="track-play-icon">
+                        ▶
+                    </span>
+
+                    <div class="track-title">
+                        ${track.title}
+                    </div>
+
+                </div>
+
+                <div class="track-meta">
+                    ${track.album} (${track.date})
+                </div>
+
+                ${downloadButton}
+
+            `;
+
+            
+            releaseList.appendChild(article);
+
+        });
+
+    </script>
+
+
+    <!-- Lògica del reproductor -->
+    <script src="js/player.js"></script>
+
+</body>
+
+</html>
