@@ -220,11 +220,30 @@ p {
 }
 
 
-/* DOWNLOAD */
+/* CODE + DOWNLOAD */
+
+.track-actions {
+    justify-self: end;
+
+    display: grid;
+    grid-template-columns: 55px 22px;
+    column-gap: 18px;
+    align-items: center;
+
+    margin-right: 15px;
+}
+
+.track-code {
+    justify-self: start;
+    white-space: nowrap;
+}
+
+.track-code-empty {
+    visibility: hidden;
+}
 
 .track-download {
     justify-self: end;
-    margin-right: 15px;
     white-space: nowrap;
 }
 
@@ -691,6 +710,149 @@ body.player-open {
 
 
 
+
+
+
+/* =========================
+   HOME
+   ========================= */
+
+.home-page header {
+    margin-bottom: 45px;
+}
+
+.terminal-intro {
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.terminal-line {
+    display: none;
+    align-items: baseline;
+}
+
+.terminal-line.visible {
+    display: flex;
+}
+
+.terminal-prompt {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    user-select: none;
+}
+
+.terminal-output {
+    min-width: 0;
+}
+
+.terminal-output a {
+    text-decoration: none;
+}
+
+.terminal-output a:hover {
+    text-decoration: underline;
+}
+
+
+/* CURSOR */
+
+.terminal-cursor {
+    display: inline-block;
+    width: 0.65em;
+    height: 1em;
+    margin-left: 2px;
+    background: #fff;
+    vertical-align: -0.12em;
+    animation: terminal-blink 1s steps(1) infinite;
+}
+
+@keyframes terminal-blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* DUES PORTES */
+
+.home-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1100px;
+
+    opacity: 0;
+    transform: translateY(8px);
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+
+    pointer-events: none;
+}
+
+.home-links.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.home-card {
+    display: block;
+    justify-self: center;
+}
+
+.home-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+
+/* DESKTOP */
+
+@media (min-width: 701px) {
+
+    .home-card {
+        width: min(84%, 54vh);
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .terminal-intro {
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+
+    .home-links {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .home-card {
+        width: 100%;
+    }
+
+}
+
+
+
+
 /* =========================
    MOBILE
    ========================= */
@@ -741,9 +903,3 @@ body.player-open {
         max-width: 300px;
     }
 }
-
-
-
-
-
-
